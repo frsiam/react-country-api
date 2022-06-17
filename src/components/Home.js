@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Loading from './Loading';
 import SingleCountrie from './SingleCountrie';
 
 const Home = () => {

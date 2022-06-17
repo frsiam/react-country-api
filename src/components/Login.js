@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useRef } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../firebase.init';
 import login from '../Images/login.png';
@@ -13,9 +12,6 @@ const Login = () => {
     const navigate = useNavigate();
     const emailRef = useRef('');
     const passwordRef = useRef('');
-    // const location = useLocation();
-
-    // const from = location.state?.from?.pathname || "/";
     let errorElement;
 
     const [
@@ -28,6 +24,7 @@ const Login = () => {
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
     if (error) {
+        toast.error('Login failed')
         errorElement = <p className='text-danger'>Error: {error?.message}</p>;
     }
 
@@ -41,14 +38,11 @@ const Login = () => {
         const password = passwordRef.current.value;
 
         await signInWithEmailAndPassword(email, password);
-        // const { data } = await axios.post('https://infinite-brook-76806.herokuapp.com/login', { email })
-        // localStorage.setItem('accessToken', data);
-        // navigate(from, { replace: true });
-        navigate('/success');
-        toast.success('Successfully Login')
+        // navigate('/success');
     }
     if (user) {
-        // navigate(from, { replace: true });
+        navigate('/success');
+        toast.success('Successfully Login')
     }
 
     const resetPassword = async () => {
@@ -61,7 +55,7 @@ const Login = () => {
     }
     return (
         <div className='min-h-screen' style={{ backgroundImage: `url(${loginbg})` }}>
-            <div className='container  mx-auto w-3/4 md:w-1/2 lg:w-2/6 py-5 px-4 md:p-5 bg-emerald-200'>
+            <div className='container  mx-auto w-3/4 md:w-1/2 lg:w-2/6 py-5 px-4 md:p-5 bg-pink-300'>
                 <div className='text-center mx-auto'>
                     <img className='img-fluid rounded-circle mx-auto w-3/5 md:w-2/6' src={login} alt="" />
                     <h1 className='text-2xl font-semibold'>Login form</h1>
