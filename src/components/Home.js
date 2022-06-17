@@ -4,19 +4,12 @@ import SingleCountrie from './SingleCountrie';
 
 const Home = () => {
     const [countries, setCountries] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetch('https://restcountries.com/v3.1/all')
             .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                return setCountries(data)
-            })
+            .then(data => setCountries(data))
     }, [])
-    if (isLoading) {
-        <Loading />
-    }
 
     return (
         <div className='container max-w-6xl mx-auto'>
